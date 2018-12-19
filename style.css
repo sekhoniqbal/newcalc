@@ -1,0 +1,79 @@
+body {font-size: 16px;
+  text-align: center;
+}
+#app{
+  border: 1px solid grey;
+  padding: 5px;
+  display: inline-block;
+
+  background-size: 638px 478px;
+
+}
+.c3 input {
+  width: 50px;
+  font-size: 16px;
+  background: grey;
+  border-style: none;
+  border-radius: 3px;
+  padding: 3px;
+}
+
+.c1{ width: 125px;
+  text-align: center;
+  line-height: 30px;
+
+}
+.c2, .c4 {
+  width:10px;
+  text-align: center;
+}
+
+.c3{
+  width:70px;
+  text-align: center;
+}
+.c5{
+  text-align: center;
+  font-size: 16px;
+
+}
+
+.c5 span {background: grey;
+  display: inline-block;
+  width: 80px;
+  font-size: 20px;
+border-style: none;
+border-radius: 3px;
+padding: 3px;}
+
+.ib{display: inline-block;}
+
+
+#total {
+  width: 100px;
+  font-size: 40px;
+
+}
+#totalr {width: 210px;
+font-size: 40px;
+text-align: center;
+background-color: #D3D3D3;
+border-radius: 10px;
+padding: 20px 0px;
+}
+
+table {border-collapse: collapse;}
+
+button{
+  background: grey;
+  border-style: none;
+  border-radius: 5px;
+  text-size:16px;
+  height: 40px;
+  width:100px;
+  vertical-align: bottom;
+  margin: 20px;
+}
+
+.danger {background: #DC143C;}
+.blue {background: aqua;}
