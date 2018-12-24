@@ -24,13 +24,24 @@
   </head>
   <body>
     <div id="app">
-      <div>
-        <div id="total" class="ib">Total</div>
-        <div id="totalr" class="ib"></div>
+      <div id="main">
+        <div>
+          <div id="total" class="ib">Total</div>
+          <div id="totalr" class="ib"></div>
+        </div>
+        <table id="load"></table>
+        <button class="danger" onclick="reset()">Reset</button>
+        <button class="blue" onclick="loadlast()">Previous Calculation</button>
+        <button class="blue" onclick="updatecoinlist()">Settings</button>
       </div>
-      <table id="load"></table>
-      <button class="danger" onclick="reset()">Reset</button>
-      <button class="blue" onclick="loadlast()">Previous Calculation</button>
+      <div id="settings" class="hide">
+        <h3>Calculator Settings</h3>
+        <table></table>
+        <button onclick="updateSettings()" class="danger">Add</button>
+        <button class="blue" onclick=updatehtml()>Back to Calulator</button>
+        <button class="danger" onclick="clearSettings()">Reset to Default</button>
+      </div>
     </div>
+
   </body>
 </html>

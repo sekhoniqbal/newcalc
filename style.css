@@ -21,7 +21,10 @@ body {font-size: 16px;
 .c1{ width: 125px;
   text-align: center;
   line-height: 30px;
-
+}
+.c1 input {
+  width: 170px;
+  height: 30px;
 }
 .c2, .c4 {
   width:10px;
@@ -62,7 +65,9 @@ border-radius: 10px;
 padding: 20px 0px;
 }
 
-table {border-collapse: collapse;}
+table, tr,td,th {border-collapse: collapse;
+  margin: 0px auto;
+}
 
 button{
   background: grey;
@@ -72,8 +77,39 @@ button{
   height: 40px;
   width:100px;
   vertical-align: bottom;
-  margin: 20px;
+  margin: 20px 0px;
 }
 
 .danger {background: #DC143C;}
 .blue {background: aqua;}
+
+.smallbutton {
+  margin: 0px;
+  height: 30px;
+}
+
+.hide {display: none}
+
+#newcoinvalue {
+  height:25px;
+  width:90px;
+  background: #D3D3D3;
+  text-align: center;
+}
+  #newcoin {
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    border: 2px solid grey ;
+  }
+
+  #symbol{
+    height:30px;
+    width: 50px;
+    font-size: 16px;
+    background: #D3D3D3;
+    border-style: none;
+    border-radius: 5px;
+    text-align: center;
+
+  }

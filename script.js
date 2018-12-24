@@ -1,4 +1,4 @@
-var obj = {
+var obj = localStorage.obj? JSON.parse(localStorage.obj): {
   coins:[
       {
         name: "fiveCent",
@@ -63,6 +63,7 @@ var obj = {
   ],
   total:0,
   last: null,
+  "symbol":"$",
 };
 
 var html
@@ -87,15 +88,19 @@ html += obj.coins.map(a=>`<tr>
       <span>=</span>
   </td>
   <td class="c5">
-  <span id="${a.name}r">$${(a.count*a.value).toFixed(2)}</span>
+  <span id="${a.name}r">${obj.symbol+(a.count*a.value).toFixed(2)}</span>
   </td>
 </tr>`).join("\n");
+document.getElementById("load").innerHTML = html;
+obj.total = obj.coins.reduce((a,b)=>a+b.value*b.count,0);
+document.getElementById("totalr").innerHTML=obj.symbol+obj.total.toFixed(2);
+
+document.querySelector("#app #settings").classList.add("hide");
+document.querySelector("#app #main").classList.remove("hide");
 }
 window.onload = function(){
   updatehtml();
-  document.getElementById("load").innerHTML = html;
-  obj.total = obj.coins.reduce((a,b)=>a+b.value*b.count,0);
-  document.getElementById("totalr").innerHTML="$"+obj.total.toFixed(2);
+
 };
 var test;
 function update(element){
@@ -104,9 +109,9 @@ function update(element){
     obj.reset=false;
     var coin = obj.coins.filter(a=>a.name==element.id)[0];
     coin.count = input;
-    document.getElementById(coin.name+"r").innerHTML = "$"+(coin.count*coin.value).toFixed(2);
+    document.getElementById(coin.name+"r").innerHTML = obj.symbol+(coin.count*coin.value).toFixed(2);
     obj.total = obj.coins.reduce((a,b)=>a+b.value*b.count,0);
-    document.getElementById("totalr").innerHTML="$"+obj.total.toFixed(2);
+    document.getElementById("totalr").innerHTML=obj.symbol+obj.total.toFixed(2);
   }
   else{var coin = obj.coins.filter(a=>a.name==element.id)[0];
     element.value=coin.count}
@@ -123,9 +128,7 @@ obj.reset=true;
 
 function loadlast(){
   obj.reset =false;
-  console.log("test");
   if(obj.last!=null){
-    console.log("test");
     var temp=obj.coins;
     obj.coins=obj.last;
     obj.last = temp;
@@ -133,6 +136,45 @@ function loadlast(){
   else{}
 }
 
+function updatecoinlist(){
+
+  document.querySelector("#app #settings").classList.remove("hide");
+  document.querySelector("#app #main").classList.add("hide");
+  var html =`<tr><th>Currency Symbol</th><th><input value="${obj.symbol}" id="symbol"></th><th><button onclick="updateSettings()" class="smallbutton blue">Update</button></th></tr>`
+  html += `<tr><th class="c1">Denomination</th> <th class="c3">Value</th><th class="c5">Action</th></tr>\n`;
+  html += obj.coins.map(a=>`<tr><td class="c1" >${a.text}</td><td class="c3">${a.value}</td><td><button onclick="removeCoin('${a.name}')" class="danger smallbutton">Remove</button></td></tr>`).join("\n");
+  html+= `\n<tr><th colspan="2" class="c1"><input placeholder="new bill or coin name" id="newcoin"></th> <th class="c3"><input type="number" placeholder="Value" id="newcoinvalue"></tr>`;
+  document.querySelector("#app #settings table").innerHTML=html;
+}
+
+function removeCoin(name){
+  var coin = obj.coins.filter(a=>a.name==name)[0];
+  if (obj.coins.indexOf(coin)!=-1) obj.coins.splice(obj.coins.indexOf(coin),1);
+  updatecoinlist();
+  obj.last = null;
+  localStorage.obj=JSON.stringify(obj);
+
+
+}
+
+function updateSettings(){
+  var symbl = document.querySelector("#app #settings #symbol").value;
+  if(symbl) obj.symbol =symbl;
+  var text = document.querySelector("#app #settings #newcoin").value;
+  var value = document.querySelector("#app #settings #newcoinvalue").value*1;
+  var name = "addedAt"+Date.now();
+  if(name && value){
+    obj.coins.push({text, name, value, count:0})
+    updatecoinlist();
+    }
+  obj.last = null;
+  localStorage.obj=JSON.stringify(obj);
+}
+
+function clearSettings(){
+  localStorage.clear();
+  window.location.reload();
+}
 //service worker
 if(navigator.serviceWorker){
     navigator.serviceWorker.register("sw.js");
